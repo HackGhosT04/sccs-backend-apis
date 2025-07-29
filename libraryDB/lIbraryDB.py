@@ -33,10 +33,15 @@ app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET', 'super-secret-key')
 db = SQLAlchemy(app)
 
 # Initialize Firebase
-basedir = os.path.dirname(os.path.abspath(__file__))
-firebase_path = os.path.join(basedir, 'sccs-a27f7-firebase-adminsdk-fbsvc-9286791118.json')
-firebase_cred = credentials.Certificate(firebase_path)
-firebase_app = firebase_admin.initialize_app(firebase_cred, {
+# Load the JSON string from the environment
+firebase_json = os.environ["FIREBASE_ADMIN_JSON"]
+
+# Parse it into a dict
+cred_dict = json.loads(firebase_json)
+
+# Create credentials and initialize
+cred = credentials.Certificate(cred_dict)
+firebase_app = firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://sccs-a27f7-default-rtdb.firebaseio.com/'
 })
 
