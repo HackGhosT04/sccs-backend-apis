@@ -14,8 +14,9 @@ from sqlalchemy.exc import SQLAlchemyError
 import traceback
 from sqlalchemy.dialects.mysql import LONGBLOB
 import base64   
- 
+from libraryDB.libraryDB_ext import OperatingTime, Library, StudyRoom, StudyRoomMedia, StudyRoomMindMap, StudyRoomMember
 
+ 
 
 
 
@@ -180,7 +181,7 @@ class OperatingTime(db.Model):
     __tablename__ = 'operatingtime'
     operating_time_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     library_id = db.Column(db.Integer, db.ForeignKey('library.library_id'), nullable=False)
-    weekday = db.Column(db.Enum('Mon','Tue','Wed','Thu','Fri','Sat','Sun'), nullable=False)
+    weekday = db.Column(db.Enum('Mon','Tue','Wed','Thu','Fri','Sat','Sun',name='weekday_enum'), nullable=False)
     open_time = db.Column(db.Time, nullable=False)
     close_time = db.Column(db.Time, nullable=False)
 
@@ -192,7 +193,7 @@ class Appointment(db.Model):
     library_id = db.Column(db.Integer, db.ForeignKey('library.library_id'), nullable=False)
     start_datetime = db.Column(db.DateTime, nullable=False)
     end_datetime = db.Column(db.DateTime, nullable=False)
-    status = db.Column(db.Enum('pending','confirmed','cancelled','completed'), default='pending')
+    status = db.Column(db.Enum('pending','confirmed','cancelled','completed', name='appointment_status_enum'), default='pending')
     notes = db.Column(db.Text)
 
     # Relationships
@@ -206,7 +207,7 @@ class PurchaseRequest(db.Model):
     author = db.Column(db.String(256), nullable=False)
     isbn = db.Column(db.String(32))
     justification = db.Column(db.Text)
-    status = db.Column(db.Enum('open','ordered','declined','received'), default='open')
+    status = db.Column(db.Enum('open','ordered','declined','received', name='purchase_status_enum'), default='open')
     requested_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Recommendation(db.Model):
@@ -216,7 +217,7 @@ class Recommendation(db.Model):
     category = db.Column(db.String(128), nullable=False)
     content = db.Column(db.Text, nullable=False)
     submitted_at = db.Column(db.DateTime, default=datetime.utcnow)
-    status = db.Column(db.Enum('new','reviewed','implemented','rejected'), default='new')
+    status = db.Column(db.Enum('new','reviewed','implemented','rejected', name='recommendation_status_enum'), default='new')
 
 # Create tables
 with app.app_context():
