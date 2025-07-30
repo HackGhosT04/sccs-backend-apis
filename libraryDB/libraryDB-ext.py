@@ -9,6 +9,7 @@ from sqlalchemy import Table
 from werkzeug.exceptions import NotFound, Unauthorized, Forbidden
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
+from libraryDB.lIbraryDB import db, User
 
 app = Flask(__name__)
 # CORS config allowing Authorization header
@@ -33,8 +34,6 @@ basedir = os.path.dirname(os.path.abspath(__file__))
 app.config.setdefault('MEDIA_UPLOAD_FOLDER', os.path.join(basedir, 'uploads', 'media'))
 os.makedirs(app.config['MEDIA_UPLOAD_FOLDER'], exist_ok=True)
 
-db = SQLAlchemy(app)
-
 # --- Initialize Firebase once ---
 if not firebase_admin._apps:
     # Pull the JSON from env var
@@ -47,17 +46,6 @@ if not firebase_admin._apps:
     })
 
 
-# --- Reflect existing User table ---
-with app.app_context():
-    user_table = Table(
-        'user',
-        db.metadata,
-        autoload_with=db.engine,
-        extend_existing=True
-    )
-
-class User(db.Model):
-    __table__ = user_table
 
 # --- Authentication Middleware ---
 PUBLIC_ENDPOINTS = {'register_user', 'static', 'favicon'}
@@ -91,7 +79,7 @@ class OperatingTime(db.Model):
     __tablename__ = 'operatingtime'
     operating_time_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     library_id        = db.Column(db.Integer, db.ForeignKey('library.library_id'), nullable=False)
-    weekday           = db.Column(db.Enum('Mon','Tue','Wed','Thu','Fri','Sat','Sun'), nullable=False)
+    weekday           = db.Column(db.Enum('Mon','Tue','Wed','Thu','Fri','Sat','Sun', name='weekday_enum'), nullable=False)
     open_time         = db.Column(db.Time, nullable=False)
     close_time        = db.Column(db.Time, nullable=False)
 
@@ -121,7 +109,7 @@ class StudyRoomMember(db.Model):
     user_id        = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     student_number = db.Column(db.String(50))
     student_email  = db.Column(db.String(255))
-    status         = db.Column(db.Enum('pending','approved','rejected'), default='pending')
+    status         = db.Column(db.Enum('pending','approved','rejected',name='membership_status_enum'), default='pending')
     joined_at      = db.Column(db.DateTime)
 
     # ← ADD THIS:
@@ -154,17 +142,8 @@ class StudyRoomMindMap(db.Model):
     room_id = db.Column(db.Integer, db.ForeignKey('study_room.room_id'), unique=True)
     data = db.Column(db.JSON)  # Stores nodes and connections
 
-# Add this after db.create_all() in your Flask app
-with app.app_context():
-    db.create_all()
-
-
 # define relationship after both sides are known
 Library.operating_hours = db.relationship('OperatingTime', backref='library', lazy=True)
-
-# Create all non-reflected tables
-with app.app_context():
-    db.create_all()
 
 
 # 7. Chat Messages
@@ -585,6 +564,5 @@ def bad_request(error):
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()
     app.run(host='0.0.0.0', port=5006, debug=True)
 
