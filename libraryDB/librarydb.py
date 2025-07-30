@@ -35,8 +35,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET', 'super-secret-key')
 
-db = SQLAlchemy(app)
-
 # Initialize Firebase
 # Load the JSON string from the environment
 firebase_json = os.environ["FIREBASE_SERVICE_ACCOUNT"]
