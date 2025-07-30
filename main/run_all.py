@@ -42,8 +42,8 @@ commands = {
     "lost_items": py_cmd("lost_items/lost_items_api.py"),
     "verification_API": py_cmd("verification/verification_API.py"),
     "career_guidance": py_cmd("academic-career-guidance/ac-guide-AI.py"),
-    "libraryDB": py_cmd("libraryDB/lIbraryDB.py"),
-    "libraryDB_ext": py_cmd("libraryDB/libraryDB_ext.py"),
+    "librarydb": py_cmd("libraryDB/lIbrarydb.py"),
+    "librarydb_ext": py_cmd("libraryDB/librarydb_ext.py"),
 }
 
 processes = {}
@@ -104,8 +104,8 @@ monitored_files = {
     "lost_items": ["lost_items/lost_items_api.py"],
     "career_guidance": ["academic-career-guidance/ac-guide-AI.py"],
     "verification_API": ["verification/verification_API.py"],
-    "libraryDB": ["libraryDB/libraryDB.py"],
-    "libraryDB_ext": ["libraryDB/libraryDB_ext.py"],
+    "librarydb": ["libraryDB/librarydb.py"],
+    "librarydb_ext": ["libraryDB/librarydb_ext.py"],
 }
 
 # Launch all services
