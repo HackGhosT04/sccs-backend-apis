@@ -32,10 +32,11 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 db = SQLAlchemy(app)
 
 # Initialize Firebase
-basedir = os.path.dirname(os.path.abspath(__file__))
-firebase_path = os.path.join(basedir, 'sccs-a27f7-firebase-adminsdk-fbsvc-9286791118.json')
-cred = credentials.Certificate(firebase_path)
-firebase_admin.initialize_app(cred)
+if not firebase_admin._apps:
+    firebase_json = os.environ["FIREBASE_ADMIN_JSON"]
+    cred_dict     = json.loads(firebase_json)
+    cred          = credentials.Certificate(cred_dict)
+    firebase_admin.initialize_app(cred)
 
 
 # Create upload folder if not exists
