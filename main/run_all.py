@@ -42,7 +42,7 @@ commands = {
     "lost_items": py_cmd("lost_items/lost_items_api.py"),
     "verification_API": py_cmd("verification/verification_API.py"),
     "career_guidance": py_cmd("academic-career-guidance/ac-guide-AI.py"),
-    "librarydb": py_cmd("libraryDB/lIbrarydb.py"),
+    "librarydb": py_cmd("libraryDB/librarydb.py"),
     "librarydb_ext": py_cmd("libraryDB/librarydb_ext.py"),
 }
 
