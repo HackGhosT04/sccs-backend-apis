@@ -25,7 +25,11 @@ CORS(
 
 # Configure database
 ####################################    make sure to replace with your mysql workbench details
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Brilliant2004@localhost:3306/sccs_lf'
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL env var is required")
+
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
