@@ -19,11 +19,13 @@ CORS(
     allow_headers=["Authorization", "Content-Type"]
 )
 
-# --- Configuration ---
-app.config['SQLALCHEMY_DATABASE_URI']        = os.getenv(
-    'DATABASE_URL',
-    'mysql+pymysql://root:Brilliant2004@localhost:3306/library'
-)
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL env var is required")
+
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY']                 = os.getenv('JWT_SECRET', 'super-secret-key')
 
