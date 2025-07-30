@@ -45,10 +45,12 @@ firebase_json = os.environ["FIREBASE_SERVICE_ACCOUNT"]
 cred_dict = json.loads(firebase_json)
 
 # Create credentials and initialize
-cred = credentials.Certificate(cred_dict)
-firebase_app = firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://sccs-a27f7-default-rtdb.firebaseio.com/'
-})
+if not firebase_admin._apps:
+    cred = credentials.Certificate(cred_dict)
+    firebase_app = firebase_admin.initialize_app(cred, {
+        'databaseURL': 'https://sccs-a27f7-default-rtdb.firebaseio.com/'
+    })
+
 
 # --- Authentication Middleware ---
 @app.before_request
