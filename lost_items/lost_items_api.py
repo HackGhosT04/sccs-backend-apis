@@ -33,7 +33,7 @@ db = SQLAlchemy(app)
 
 # Initialize Firebase
 if not firebase_admin._apps:
-    firebase_json = os.environ["FIREBASE_ADMIN_JSON"]
+    firebase_json = os.environ["FIREBASE_SERVICE_ACCOUNT"]
     cred_dict     = json.loads(firebase_json)
     cred          = credentials.Certificate(cred_dict)
     firebase_admin.initialize_app(cred)
