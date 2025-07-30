@@ -14,6 +14,21 @@ for entry in os.listdir(BASE_DIR):
     print(" ENTRY:", entry)
 sys.stdout.flush()
 
+
+print("=== BASE_DIR:", BASE_DIR)
+print("Contents of BASE_DIR:")
+for e in os.listdir(BASE_DIR):
+    print(" ", e)
+lib_dir = os.path.join(BASE_DIR, "libraryDB")
+print("Contents of libraryDB/:")
+if os.path.isdir(lib_dir):
+    for e in os.listdir(lib_dir):
+        print("  -", e)
+else:
+    print("  ! libraryDB directory not found")
+sys.stdout.flush()
+
+
 # Use the current Python executable for all scripts
 PYTHON = sys.executable
 
