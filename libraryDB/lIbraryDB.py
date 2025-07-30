@@ -34,7 +34,7 @@ db = SQLAlchemy(app)
 
 # Initialize Firebase
 # Load the JSON string from the environment
-firebase_json = os.environ["FIREBASE_ADMIN_JSON"]
+firebase_json = os.environ["FIREBASE_SERVICE_ACCOUNT"]
 
 # Parse it into a dict
 cred_dict = json.loads(firebase_json)
