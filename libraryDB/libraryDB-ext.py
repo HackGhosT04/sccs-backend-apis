@@ -35,9 +35,12 @@ db = SQLAlchemy(app)
 
 # --- Initialize Firebase once ---
 if not firebase_admin._apps:
-    firebase_path = os.path.join(basedir, 'sccs-a27f7-firebase-adminsdk-fbsvc-9286791118.json')
-    firebase_cred = credentials.Certificate(firebase_path)
-    firebase_admin.initialize_app(firebase_cred, {
+    # Pull the JSON from env var
+    firebase_json = os.environ["FIREBASE_SERVICE_ACCOUNT"]
+    cred_dict     = json.loads(firebase_json)
+    # Use it to create the credential
+    cred          = credentials.Certificate(cred_dict)
+    firebase_admin.initialize_app(cred, {
         'databaseURL': 'https://sccs-a27f7-default-rtdb.firebaseio.com/'
     })
 
