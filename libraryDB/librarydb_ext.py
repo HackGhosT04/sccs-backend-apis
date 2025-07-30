@@ -9,7 +9,7 @@ from sqlalchemy import Table
 from werkzeug.exceptions import NotFound, Unauthorized, Forbidden
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
-from libraryDB.librarydb import db, User
+from librarydb import db, User
 
 app = Flask(__name__)
 # CORS config allowing Authorization header
