@@ -81,21 +81,6 @@ def authenticate_request():
 
 
 # --- Database Models ---
-class User(db.Model):
-    __tablename__ = 'user'
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    firebase_uid = db.Column(db.String(128), unique=True, nullable=False)
-    name = db.Column(db.String(256), nullable=False)
-    email = db.Column(db.String(256), unique=True, nullable=False)
-    role = db.Column(db.Enum('student', 'staff'), nullable=False, default='student')
-    
-    # Relationships
-    reservations = db.relationship('Reservation', backref='user', lazy=True)
-    loans = db.relationship('Loan', backref='user', lazy=True)
-    fees = db.relationship('FeeFine', backref='user', lazy=True)
-    appointments = db.relationship('Appointment', foreign_keys='Appointment.user_id', backref='user', lazy=True)
-    purchase_requests = db.relationship('PurchaseRequest', backref='user', lazy=True)
-    recommendations = db.relationship('Recommendation', backref='user', lazy=True)
 
 class Library(db.Model):
     __tablename__ = 'library'
