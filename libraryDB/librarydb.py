@@ -15,7 +15,7 @@ import traceback
 from sqlalchemy.dialects.mysql import LONGBLOB
 import base64
 from extensions import db
-from librarydb_ext import OperatingTime, Library, StudyRoom, StudyRoomMedia, StudyRoomMindMap, StudyRoomMember
+from librarydb_ext import User,OperatingTime, Library, StudyRoom, StudyRoomMedia, StudyRoomMindMap, StudyRoomMember
 
  
 
