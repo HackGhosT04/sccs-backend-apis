@@ -7,7 +7,12 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 # Root directory of the project
+
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+print("=== BASE_DIR ===", BASE_DIR)
+for entry in os.listdir(BASE_DIR):
+    print(" ENTRY:", entry)
+sys.stdout.flush()
 
 # Use the current Python executable for all scripts
 PYTHON = sys.executable
