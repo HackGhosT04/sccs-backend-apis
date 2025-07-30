@@ -43,7 +43,7 @@ commands = {
     "verification_API": py_cmd("verification/verification_API.py"),
     "career_guidance": py_cmd("academic-career-guidance/ac-guide-AI.py"),
     "libraryDB": py_cmd("libraryDB/lIbraryDB.py"),
-    "libraryDB-ext": py_cmd("libraryDB/libraryDB-ext.py"),
+    "libraryDB_ext": py_cmd("libraryDB/libraryDB_ext.py"),
 }
 
 processes = {}
@@ -105,7 +105,7 @@ monitored_files = {
     "career_guidance": ["academic-career-guidance/ac-guide-AI.py"],
     "verification_API": ["verification/verification_API.py"],
     "libraryDB": ["libraryDB/libraryDB.py"],
-    "libraryDB-ext": ["libraryDB/libraryDB-ext.py"],
+    "libraryDB_ext": ["libraryDB/libraryDB_ext.py"],
 }
 
 # Launch all services
