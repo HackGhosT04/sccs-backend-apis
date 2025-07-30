@@ -10,7 +10,7 @@ from werkzeug.exceptions import NotFound, Unauthorized, Forbidden
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 from extensions import db
-from librarydb import  User
+
 
 app = Flask(__name__)
 # CORS config allowing Authorization header
@@ -76,6 +76,22 @@ def authenticate_request():
         raise Unauthorized(f'Invalid token: {e}')
 
 # --- Models ---
+class User(db.Model):
+    __tablename__ = 'user'
+    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    firebase_uid = db.Column(db.String(128), unique=True, nullable=False)
+    name = db.Column(db.String(256), nullable=False)
+    email = db.Column(db.String(256), unique=True, nullable=False)
+    role = db.Column(db.Enum('student', 'staff'), nullable=False, default='student')
+    
+    # Relationships
+    reservations = db.relationship('Reservation', backref='user', lazy=True)
+    loans = db.relationship('Loan', backref='user', lazy=True)
+    fees = db.relationship('FeeFine', backref='user', lazy=True)
+    appointments = db.relationship('Appointment', foreign_keys='Appointment.user_id', backref='user', lazy=True)
+    purchase_requests = db.relationship('PurchaseRequest', backref='user', lazy=True)
+    recommendations = db.relationship('Recommendation', backref='user', lazy=True)
+    
 class OperatingTime(db.Model):
     __tablename__ = 'operatingtime'
     operating_time_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
