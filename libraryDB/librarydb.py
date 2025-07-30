@@ -14,7 +14,7 @@ from sqlalchemy.exc import SQLAlchemyError
 import traceback
 from sqlalchemy.dialects.mysql import LONGBLOB
 import base64   
-from librarydb_ext.py import OperatingTime, Library, StudyRoom, StudyRoomMedia, StudyRoomMindMap, StudyRoomMember
+from librarydb_ext import OperatingTime, Library, StudyRoom, StudyRoomMedia, StudyRoomMindMap, StudyRoomMember
 
  
 
