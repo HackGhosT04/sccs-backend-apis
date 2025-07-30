@@ -24,8 +24,6 @@ commands = {
     "career_guidance": py_cmd("academic-career-guidance/ac-guide-AI.py"),
     "libraryDB": py_cmd("libraryDB/libraryDB.py"),
     "libraryDB-ext": py_cmd("libraryDB/libraryDB-ext.py"),
-    "assessment_api": py_cmd("Academic_Guidance_scripts/assessment_api.py"),
-    "academic_planning_api": py_cmd("Academic_Guidance_scripts/academic_planning_api.py"),
 }
 
 processes = {}
@@ -88,8 +86,6 @@ monitored_files = {
     "verification_API": ["verification/verification_API.py"],
     "libraryDB": ["libraryDB/libraryDB.py"],
     "libraryDB-ext": ["libraryDB/libraryDB-ext.py"],
-    "assessment_api": ["Academic_Guidance_scripts/assessment_api.py"],
-    "academic_planning_api": ["Academic_Guidance_scripts/academic_planning_api.py"],
 }
 
 # Launch all services
