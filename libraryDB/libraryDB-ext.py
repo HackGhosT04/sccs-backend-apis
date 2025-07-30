@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, g, abort, send_file, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime
-import uuid, os
+import uuid, os, json
 import firebase_admin
 from firebase_admin import credentials, auth, db as firebase_db
 from sqlalchemy import Table
